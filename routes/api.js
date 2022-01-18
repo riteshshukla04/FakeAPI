@@ -52,11 +52,13 @@ router.post("/getRequest", jsonParser, async (req, res) => {
 
 router.get("/:id", urlencodedParser, async (req, res) => {
   
-  try {
-    const res=apiModel.exists({ key: req.params.id });
-    if(!res){
-      return res.status(400).send("NotFound");
+  
+    const resp=await apiModel.exists({ key: req.params.id });
+    console.log(resp);
+    if(!resp){
+      return res.status(400).send("Not Found");
     }
+    try {
     const apiData = apiModel.findOne({ key: req.params.id }, (err, data) => {
       if (err) {
         return res.status(400).send("Done");
