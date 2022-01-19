@@ -3,7 +3,6 @@ const apiSchema=new mongoose.Schema(
     {
         data:{
             type:String,
-            max:255,
             min:6
         },
         key:{
