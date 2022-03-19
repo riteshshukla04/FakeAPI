@@ -4,6 +4,12 @@ const bodyParser = require("body-parser");
 var jsonParser = bodyParser.json();
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
+
+
+
+
+
+
 function isJson(item) {
   item = typeof item !== "string" ? JSON.stringify(item) : item;
 
@@ -54,7 +60,6 @@ router.get("/:id", urlencodedParser, async (req, res) => {
   
   
     const resp=await apiModel.exists({ key: req.params.id });
-    console.log(resp);
     if(!resp){
       return res.status(400).send("Not Found");
     }
@@ -63,7 +68,10 @@ router.get("/:id", urlencodedParser, async (req, res) => {
       if (err) {
         return res.status(400).send("Done");
       }
-      res.send(data.data);
+      s=data.data
+      s=s.replace(/(?:\r\n|\r|\n)/g, '<br>');
+      res.send(s);
+      
     });
   } catch (err) {
     res.status(400).send(err);
