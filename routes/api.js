@@ -68,9 +68,17 @@ router.get("/:id", urlencodedParser, async (req, res) => {
       if (err) {
         return res.status(400).send("Done");
       }
-      s=data.data
-      s=s.replace(/(?:\r\n|\r|\n)/g, '<br>');
-      res.send(s);
+      let s=data.data
+      let t=""
+      if(s.includes("<div>")||s.includes("<html>")||s.includes("<body>")||s.includes("<input>")){
+        t=s
+      }
+      else{
+        t=s.replace(/(?:\r\n|\r|\n)/g, '<br>');
+
+      }
+      
+      res.send(t);
       
     });
   } catch (err) {
